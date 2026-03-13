@@ -1,0 +1,64 @@
+import type React from "react"
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import { Analytics } from "@vercel/analytics/next"
+import "../../../../../../globals.css"
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://dentalassociategrowth.com"),
+  title: {
+    default: "Dental Associate Growth: The Associate Operating System",
+    template: "%s | Dental Associate Growth",
+  },
+  description:
+    "The first complete system for developing associate dentists, combining clinical systems AND dentist development. Built by operators who've done it.",
+  keywords: [
+    "dental associate development",
+    "associate dentist training",
+    "dental practice growth",
+    "clinical leadership",
+    "DSO associate management",
+    "dental associate retention",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "Dental Associate Growth",
+    title: "Dental Associate Growth: The Associate Operating System",
+    description:
+      "Stop tolerating mediocrity. The first complete system for developing associate dentists, combining 6 Clinical Systems + 10-Step Associate Playbook + 90-Day Rhythm.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Dental Associate Growth",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Dental Associate Growth: The Associate Operating System",
+    description:
+      "The first complete system for developing associate dentists. Built by operators, not consultants.",
+    images: ["/og-image.jpg"],
+  },
+
+}
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
+  return (
+    <html lang="en">
+      <body className={`${inter.variable} font-sans antialiased`}>
+        {children}
+        <Analytics />
+      </body>
+    </html>
+  )
+}
