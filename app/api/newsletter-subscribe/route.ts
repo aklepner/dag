@@ -19,26 +19,13 @@ export async function POST(request: Request) {
     // Send to Google Sheets
     await sendToGoogleSheets(payload)
 
-    // Send to GHL API
-    const ghlApiToken = process.env.GHL_API_TOKEN
-    const ghlLocationId = process.env.GHL_LOCATION_ID
-    if (ghlApiToken && ghlLocationId) {
-      const ghlPayload = {
-        firstName,
-        lastName: lastName || "",
-        email,
-        locationId: ghlLocationId,
-        source: source || "dag-footer",
-        tags: [list || "clinical-leadership-journal", "newsletter-signup"],
-      }
-      await fetch("https://services.leadconnectorhq.com/contacts/", {
+    // Send to GHL if configured
+    const webhookUrl = process.env.GHL_WEBHOOK_URL
+    if (webhookUrl) {
+      await fetch(webhookUrl, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${ghlApiToken}`,
-          "Version": "2021-07-28",
-        },
-        body: JSON.stringify(ghlPayload),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       })
     }
 
